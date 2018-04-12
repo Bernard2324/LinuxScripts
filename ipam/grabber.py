@@ -19,16 +19,21 @@ class SubnetFeed(object):
         if not isinstance(self._obj, abc.MutableSequence):
             raise StandardError("")
         self._obj = fcd
-
-        SubnetFeed.getparam(self._obj, select, param)
+    
+    def __getatr__(self, name):
+        if hasattr(self._obj, name):
+            return getattr(self._obj, name)
+        else:
+            SubnetFeed.getparam(self._obj['data'], name)
     
     @classmethod
     def getparam(cls, obj, param, select=None, pin=None):
-        for subnet in self._obj['data']:
+        for selector in obj['data']:
             if select is None:
-                return subnet[param]
-            if subnet[pin] == select:
-                return subnet[param]
+                return selector[param]
+            if selector[pin] == select:
+                return selector[param]
+
 
 class Grabber(url_obj):
 
