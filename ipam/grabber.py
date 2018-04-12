@@ -23,7 +23,7 @@ class SubnetFeed(object):
         SubnetFeed.getid(self._obj, select, param)
     
     @classmethod
-    def getparam(cls, obj, paramselect=None, pin=None):
+    def getparam(cls, obj, param, select=None, pin=None):
         for subnet in self._obj['data']:
             if select is None:
                 return subnet[param]
@@ -43,8 +43,8 @@ class Grabber(url_obj):
         if section_choice != "ALL":
             return SubnetFeed(datablock, section_choice, 'name', 'id')[0]
         
-        company_dcenters = SubnetFeed(datablock, None, 'name')
-        datacenter_ids = SubnetFeed(datablock, None, 'id')
+        company_dcenters = SubnetFeed(datablock,'name')
+        datacenter_ids = SubnetFeed(datablock,'id')
 
         name_constructors = [
             (str(server_type)+dc) for dc in company_dcenters
@@ -60,7 +60,7 @@ class Grabber(url_obj):
         # Use the nested function above for easier recursion
         def decision(sub_selection):
             selection = sub_selection.strip()
-            id_holder = SubnetFeed(first_call_data, 'subnet', selection, 'id')[0]
+            id_holder = SubnetFeed(first_call_data, 'id', select=selection, pin='subnet')[0]
 
             new_uri = "https://linkto.server.local/api/{}/subnets/{}/first_free/".format(
                 self.user, id_holder
@@ -74,7 +74,7 @@ class Grabber(url_obj):
             url_obj.close()
         
         if not sys.argv[3] == "--list":
-            sec_sub_id = SubnetFeed(first_call_data, sys.argv[3], 'id')
+            sec_sub_id = SubnetFeed(first_call_data, 'id', select=sys.argv[3], pin='subnet')
             # print specific.  Just in case the subnet desired is already known
 
             id_holder = sec_sub_id
