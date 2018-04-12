@@ -20,7 +20,7 @@ class SubnetFeed(object):
             raise StandardError("")
         self._obj = fcd
 
-        SubnetFeed.getid(self._obj, select, param)
+        SubnetFeed.getparam(self._obj, select, param)
     
     @classmethod
     def getparam(cls, obj, param, select=None, pin=None):

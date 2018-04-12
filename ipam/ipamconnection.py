@@ -46,7 +46,7 @@ class ConnectionAction(IpamConnection):
         super(ConnectionAction, self).__init__()
 
         if sheaders is not None:
-            self.header.update(sheaders)
+            self.headers.update(sheaders)
 
     def gather(self, *args, **kwargs):
         responseBuffer = StringIO.StringIO()
