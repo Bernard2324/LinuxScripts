@@ -20,5 +20,12 @@ class url_obj(object):
         x = ConnectionAction(headers)
         return x.gather(*['HTTPGET', 'TIMEOUT', 'URL'], **opts)
 
-    def close(self):
-        self.curl.close()
+    def add_entry(self, resource):
+    	headers = {'Accept:': '*/*', 'token:': token}
+
+    	opts = {
+    		'URL': resource, postfields: address_values
+    	}
+
+    	x = ConnectionAction(headers)
+    	return x.gather(*['URL'], **opts)
