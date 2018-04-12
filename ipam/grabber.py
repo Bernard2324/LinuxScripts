@@ -23,7 +23,7 @@ class SubnetFeed(object):
         SubnetFeed.getid(self._obj, select, param)
     
     @classmethod
-    def getparam(cls, obj, select, pin, param):
+    def getparam(cls, obj, paramselect=None, pin=None):
         for subnet in self._obj['data']:
             if select is None:
                 return subnet[param]
